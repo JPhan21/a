@@ -1,0 +1,56 @@
+To set up your amazeriffic database:
+
+1. vagrant  ssh  or ssh into vagrant ubuntu box
+2. In Ubuntu with MySQL installed: do
+3. > mysql -u root -p
+	<then enter the password that was used at installation. 
+		note:  If you use the bootstrap.sh shell script provided by me, I have set up the initial mysql root user password to "pwd12345". You should change it to something more secure for real use, but for the class' homework purpose, it is good enough. Reference to change mysql user password:  https://dev.mysql.com/doc/refman/5.7/en/set-password.html
+	e.g. set password for 'root'@'localhost' = password('mickeMousey123'); -- if you want ot change the password of the root user
+	
+4. If you have not created the amazeriffic database yet, then create it:
+	mysql>  create database amazeriffic;
+	
+5. Check if database had been created:
+	mysql> SHOW DATABASES;   -- if amazeriffic is listed in the Database table, then it is created
+	
+6. Change to use amazeriffic as the current database:
+	mysql> USE  amazeriffic;
+	
+7. To check if the current database is what you want:
+	mysql> select database();				-- amazeriffic should be listed. If not , repeat step 6 and check again 
+
+8. Use the SQL code in the project /sprocs/create_tables.sql to create teh tables for amazeriffic: copy the code from the file, and paste after the 'mysql>' prompt.  Best is to do one table at a time to make sure each is created correctly.  An ok status after each create statement shows that the table has been created.
+
+9. check if tables are created:
+	mysql>  SHOW TABLES;
+		
+10. Use the SQL code in the project /sproc/	amazeriffic_sproc.sql to create the stored procedures that I provide:  Copy the text from the file and paste it after the 'mysql>' prompt from  the line of "delimiter //" to "delimiter ;".
+
+11. Check if procedures are created by listing them:
+	mysql>   show procedure status;
+	
+12. To check if there are data in the tables, use the seelct statement:
+	mysql> select * from tasks;
+	mysql> select * from tags;
+	mysql> select * from taskTypes;
+
+13. Create a text file named "dbconfig.txt" in the folder "htdocs"
+	Put your mysql connection info in it and save:
+
+	amazeriffic
+	root
+	[put your mysql root user's password here without the square backet]
+	localhost
+
+	THe code in dbfunctions.py need the mysql login and db name info to make the connection to the amazeriffic db.	
+	
+14. Now that you are done, use either 'ctl-D' or 'exit;' to lelave mysql command line session.
+
+15. Set up amazeriffic schem done!
+
+
+## TO test using curl:
+curl -u "mickey:pwd12345" -i http://localhost:80/todos/api/v1.0/tasks
+
+
+	

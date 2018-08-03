@@ -1,0 +1,4 @@
+amazeriffic
+root
+pwd12345
+localhost
